@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Make an account today!</h2>
+<form method="post">
+  <label>Username</label>
+  <input type='text' name='username' value={{username_value}}></input>
+  <span class = error> {{username_message}} </span>
+  <br>
+
+  <label>Password</label>
+  <input type='password' name='password' value = {{password_value}}></input>
+  <span class = 'error'> {{password_message}}</span>
+  <br>
+
+  <label>Retype Password</label>
+  <input type='password' name='retype_password' value={{password_value}}></input>
+  <br>
+
+  <label>Email (Optional)</label>
+  <input type='text' name='email'></input>
+  <span class = 'error'>{{email_message}}</span>
+
+  <br>
+  <button>Submit</button>
+</form>
+
+{% endblock %}

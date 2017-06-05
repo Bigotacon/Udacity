@@ -1,0 +1,9 @@
+Digital OceanHow to Deploy a Flask App
+First change the index.htmlThen also in the Classroom, 
+the sample mod_wsgi appthen the How to Deploy a Flask app
+After that, then try in a parallel directory to work on your Catalog appso it will be /var/www/FlaskAppAND/var/www/CatalogApp
+The virtual host file tells the server which wweb site to display so it’s ok to have many
+These virtual host files (ends in .conf) can be enabled or disabled…. the Digital Ocean docs will explain in more detail :)
+
+
+

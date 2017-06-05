@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Home Page</title>
+</head>
+<body>
+
+    <div class='pane'>
+        <div class='header'>
+            <h1>Fancy Restaurants</h1>
+        </div>
+        <a href='{{url_for('restuarantsNew')}}'>Create a New Restaurant</a>
+
+        <div class="flash">
+
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+
+            <ul>
+                {% for message in messages %}
+                <li> <strong> {{ message }} </strong></li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+
+        </div>
+
+        {% for restaurant in restaurants %}
+        <div class='NameandPrice'>
+          <span class='name'><p>{{restaurant.name}}</p></span>
+        </div>
+
+        <div class="editdeletepane">
+          <a href='{{url_for('restautantsEdit', restaurant_id=restaurant.id)}}'>
+            Edit
+          </a>
+          <a href='{{url_for('restautantsDelete', restaurant_id=restaurant.id)}}'>
+            Delete
+          </a>
+
+        {% endfor %}
+      </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="post">
+  <label>
+    <div>title</div>
+    <input type="text" name="title" value={{title}}>
+  </label>
+
+  <label>
+    <div>Art</div>
+    <textarea name = "art" >{{art}}</textarea>
+  </label>
+  <br>
+<input type="submit">
+
+<div class = "error">{{error}}</div>
+</form>
+
+<hr>
+
+{% for art in arts %}
+  <div class="art">
+    <div class="site-title">{{art.title}}</div>
+    <pre class="site-body">{{art.art}}</pre>
+  </div>
+{% endfor %}
+{% endblock %}
