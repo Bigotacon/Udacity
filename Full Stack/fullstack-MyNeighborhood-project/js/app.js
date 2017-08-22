@@ -1,136 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <style>
-      html,
-      body {
-        font-family: Arial, sans-serif;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
 
-      .container {
-        height: 100%;
-        position: relative;
-      }
-
-      input {
-        font-size: 12px;
-      }
-
-      h1 {
-        color: #525454;
-        font-size: 22px;
-        margin: 0 0 10px 0;
-        text-align: center;
-      }
-
-      #hide-listings,
-      #show-listings {
-        width: 48%;
-      }
-
-      hr {
-        background: #D0D7D9;
-        height: 1px;
-        margin: 20px 0 20px 0;
-        border: none;
-      }
-
-      #map {
-        bottom:0px;
-        height: 100%;
-        left: 362px;
-        position: absolute;
-        right: 0px;
-      }
-
-      .options-box {
-        background: #fff;
-        border: 1px solid #999;
-        border-radius: 3px;
-        height: 100%;
-        line-height: 35px;
-        padding: 10px 10px 30px 10px;
-        text-align: left;
-        width: 340px;
-      }
-
-      #pano {
-        width: 200px;
-        height: 200px;
-      }
-
-      #places-search,
-      #search-within-time-text {
-        width: 84%;
-      }
-
-      .text {
-        font-size: 12px;
-      }
-
-      #toggle-drawing {
-        width: 27%;
-        position: relative;
-        margin-left: 10px;
-      }
-
-      #zoom-to-area-text {
-        width: 70%;
-      }
-
-      #zoom-to-area {
-        width: 24%;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div class="options-box">
-        <h1>Find Your New NYC Home</h1>
-        <div>
-          <input id="show-listings" type="button" value="Show Listings">
-          <input id="hide-listings" type="button" value="Hide Listings">
-          <hr>
-          <span class="text"> Draw a shape to search within it for homes!</span>
-          <input id="toggle-drawing"  type="button" value="Drawing Tools">
-        </div>
-        <hr>
-        <div>
-          <input id="zoom-to-area-text" type="text" placeholder="Enter your favorite area!">
-          <input id="zoom-to-area" type="button" value="Zoom">
-        </div>
-        <hr>
-        <div>
-          <span class="text"> Within </span>
-          <select id="max-duration">
-            <option value="10">10 min</option>
-            <option value="15">15 min</option>
-            <option value="30">30 min</option>
-            <option value="60">1 hour</option>
-          </select>
-          <select id="mode">
-            <option value="DRIVING">drive</option>
-            <option value="WALKING">walk</option>
-            <option value="BICYCLING">bike</option>
-            <option value="TRANSIT">transit ride</option>
-          </select>
-          <span class="text">of</span>
-          <input id="search-within-time-text" type="text" placeholder="Ex: Google Office NYC or 75 9th Ave, New York, NY">
-          <input id="search-within-time" type="button" value="Go">
-        </div>
-        <hr>
-        <div>
-          <span class="text">Search for nearby places</span>
-          <input id="places-search" type="text" placeholder="Ex: Pizza delivery in NYC">
-          <input id="go-places" type="button" value="Go">
-        </div>
-      </div>
-      <div id="map"></div>
-    </div>
-    <script>
       var map;
 
       // Create a new blank array for all the listing markers.
@@ -214,7 +82,7 @@
 
         // Constructor creates a new map - only center and zoom are required.
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 40.7413549, lng: -73.9980244},
+          center: {lat: 30.312675956, lng: -97.7548314},
           zoom: 13,
           styles: styles,
           mapTypeControl: false
@@ -236,13 +104,13 @@
 
         // These are the real estate listings that will be shown to the user.
         // Normally we'd have these in a database instead.
-        var locations = [
-          {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
-          {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
-          {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
-          {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
-          {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
-          {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
+          var locations = [
+          {title: 'Spring Condominiuniums', location: {lat:30.268819, lng:-97.753838}},
+          {title: 'Vista Hill Luxury Condiniums', location: {lat:30.252844, lng:-97.875664}},
+          {title: '360 Condominiums', location: {lat:30.267056, lng:-97.749750}},
+          {title: 'W Austin', location: {lat:30.265723, lng:-97.746747}},
+          {title: 'Four Seasons', location: {lat:30.261675, lng:-97.742270}},
+          {title: 'Omni Austin', location: {lat:30.270772, lng:-97.740369}}
         ];
 
         var largeInfowindow = new google.maps.InfoWindow();
@@ -282,6 +150,7 @@
           // Push the marker to our array of markers.
           markers.push(marker);
           // Create an onclick event to open the large infowindow at each marker.
+          //marker.addListener('click', populateInfoWindow(this, largeInfowindow));
           marker.addListener('click', function() {
             populateInfoWindow(this, largeInfowindow);
           });
@@ -458,14 +327,14 @@
         // Get the address or place that the user entered.
         var address = document.getElementById('zoom-to-area-text').value;
         // Make sure the address isn't blank.
-        if (address == '') {
+        if (address === '') {
           window.alert('You must enter an area, or address.');
         } else {
           // Geocode the address/area entered to get the center. Then, center the map
           // on it and zoom in
           geocoder.geocode(
             { address: address,
-              componentRestrictions: {locality: 'New York'}
+              componentRestrictions: {locality: 'Texas'}
             }, function(results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
                 map.setCenter(results[0].geometry.location);
@@ -483,10 +352,10 @@
       // that are within that travel time (via that travel mode) of the location
       function searchWithinTime() {
         // Initialize the distance matrix service.
-        var distanceMatrixService = new google.maps.DistanceMatrixService;
+        var distanceMatrixService = new google.maps.DistanceMatrixService();
         var address = document.getElementById('search-within-time-text').value;
         // Check to make sure the place entered isn't blank.
-        if (address == '') {
+        if (address === '') {
           window.alert('You must enter an address.');
         } else {
           hideMarkers(markers);
@@ -571,7 +440,7 @@
       // on the map.
       function displayDirections(origin) {
         hideMarkers(markers);
-        var directionsService = new google.maps.DirectionsService;
+        var directionsService = new google.maps.DirectionsService();
         // Get the destination address from the user entered value.
         var destinationAddress =
             document.getElementById('search-within-time-text').value;
@@ -604,7 +473,7 @@
       function searchBoxPlaces(searchBox) {
         hideMarkers(placeMarkers);
         var places = searchBox.getPlaces();
-        if (places.length == 0) {
+        if (places.length === 0) {
           window.alert('We did not find any places matching that search!');
         } else {
         // For each place, get the icon, name and location.
@@ -715,13 +584,3 @@
         }
       });
     }
-
-    </script>
-
-    <script async defer
-        src=
-            "https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyCqPAq5oeGcLy1Q_PK25XP7_73SremPqqo&v&v=3&callback=initMap">
-    </script>
-
-  </body>
-</html>
