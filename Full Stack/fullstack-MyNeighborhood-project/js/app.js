@@ -1,4 +1,3 @@
-
       var map;
 
       // Create a new blank array for all the listing markers.
@@ -8,11 +7,39 @@
       var polygon = null;
 
       // Create placemarkers array to use in multiple functions to have control
-      // over the number of places that show.
-      var placeMarkers = [];
+// over the number of places that show.
 
-      function initMap() {
-        // Create a styles array to use with the map.
+
+      var placeMarkers = [];
+//function populateWindow()
+//{
+//    populateInfoWindow(this,largeInfowindow);
+//}
+
+//marker.addListener('click', populateInfoWindow);
+
+//marker.addListener('mouseover', function() {
+//    this.setIcon(highlightedIcon);
+//});
+//marker.addListener('mouseout', function() {
+//    this.setIcon(defaultIcon);
+//});
+
+        function initMap() {
+            //declaring functions to prevent from declaring functions inside a loop
+          function populateWindow()
+          {
+              populateInfoWindow(this,largeInfowindow);
+          }
+            function mouseOverIcon()
+            {
+                this.setIcon(highlightedIcon);
+            }
+            function mouseOutIcon()
+            {
+                this.setIcon(defaultIcon);
+            }
+       // Create a styles array to use with the map.
         var styles = [
           {
             featureType: 'water',
@@ -151,17 +178,20 @@
           markers.push(marker);
           // Create an onclick event to open the large infowindow at each marker.
           //marker.addListener('click', populateInfoWindow(this, largeInfowindow));
-          marker.addListener('click', function() {
-            populateInfoWindow(this, largeInfowindow);
-          });
+          marker.addListener('click', populateWindow);
+          //marker.addListener('click', function() {
+          //  populateInfoWindow(this, largeInfowindow);
+          //});
           // Two event listeners - one for mouseover, one for mouseout,
           // to change the colors back and forth.
-          marker.addListener('mouseover', function() {
-            this.setIcon(highlightedIcon);
-          });
-          marker.addListener('mouseout', function() {
-            this.setIcon(defaultIcon);
-          });
+            marker.addListener('mouseover',mouseOverIcon);
+            marker.addListener('mouseout',mouseOutIcon);
+          //marker.addListener('mouseover', function() {
+          //  this.setIcon(highlightedIcon);
+          //});
+          //marker.addListener('mouseout', function() {
+          //  this.setIcon(defaultIcon);
+          //});
         }
         document.getElementById('show-listings').addEventListener('click', showListings);
 
