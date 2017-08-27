@@ -1,3 +1,9 @@
+var Model = function(data){
+};
+var ViewModel = function(){
+};
+// ko.applyBindings(new ViewModel()); // Causes eror with push method
+
       var map;
 
       // Create a new blank array for all the listing markers.
@@ -11,19 +17,6 @@
 
 
       var placeMarkers = [];
-//function populateWindow()
-//{
-//    populateInfoWindow(this,largeInfowindow);
-//}
-
-//marker.addListener('click', populateInfoWindow);
-
-//marker.addListener('mouseover', function() {
-//    this.setIcon(highlightedIcon);
-//});
-//marker.addListener('mouseout', function() {
-//    this.setIcon(defaultIcon);
-//});
 
         function initMap() {
             //declaring functions to prevent from declaring functions inside a loop
@@ -244,6 +237,28 @@
         });
       }
 
+////////////////////////////////////////////////////////////////////////////////////////////
+// function getStreetView(data, status) {                                                 //
+//     if (status == google.maps.StreetViewStatus.OK) {                                   //
+//         var nearStreetViewLocation = data.location.latLng;                             //
+//         var heading = google.maps.geometry.spherical.computeHeading(                   //
+//             nearStreetViewLocation, marker.position);                                  //
+//         infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>'); //
+//         var panoramaOptions = {                                                        //
+//             position: nearStreetViewLocation,                                          //
+//             pov: {                                                                     //
+//                 heading: heading,                                                      //
+//                 pitch: 30                                                              //
+//             }                                                                          //
+//         };                                                                             //
+//         var panorama = new google.maps.StreetViewPanorama(                             //
+//             document.getElementById('pano'), panoramaOptions);                         //
+//     } else {                                                                           //
+//         infowindow.setContent('<div>' + marker.title + '</div>' +                      //
+//                               '<div>No Street View Found</div>');                      //
+//     }                                                                                  //
+// }                                                                                      //
+////////////////////////////////////////////////////////////////////////////////////////////
       // This function populates the infowindow when the marker is clicked. We'll only allow
       // one infowindow which will open at the marker that is clicked, and populate based
       // on that markers position.
@@ -262,29 +277,51 @@
           // In case the status is OK, which means the pano was found, compute the
           // position of the streetview image, then calculate the heading, then get a
           // panorama from that and set the options
-          function getStreetView(data, status) {
-            if (status == google.maps.StreetViewStatus.OK) {
-              var nearStreetViewLocation = data.location.latLng;
-              var heading = google.maps.geometry.spherical.computeHeading(
-                nearStreetViewLocation, marker.position);
-                infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>');
-                var panoramaOptions = {
-                  position: nearStreetViewLocation,
-                  pov: {
-                    heading: heading,
-                    pitch: 30
-                  }
-                };
-              var panorama = new google.maps.StreetViewPanorama(
-                document.getElementById('pano'), panoramaOptions);
-            } else {
-              infowindow.setContent('<div>' + marker.title + '</div>' +
-                '<div>No Street View Found</div>');
-            }
-          }
+          //////////////////////////////////////////////////////////////////////////////////////////
+          // function getStreetView(data, status) {                                               //
+          //   if (status == google.maps.StreetViewStatus.OK) {                                   //
+          //     var nearStreetViewLocation = data.location.latLng;                               //
+          //     var heading = google.maps.geometry.spherical.computeHeading(                     //
+          //       nearStreetViewLocation, marker.position);                                      //
+          //       infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>'); //
+          //       var panoramaOptions = {                                                        //
+          //         position: nearStreetViewLocation,                                            //
+          //         pov: {                                                                       //
+          //           heading: heading,                                                          //
+          //           pitch: 30                                                                  //
+          //         }                                                                            //
+          //       };                                                                             //
+          //     var panorama = new google.maps.StreetViewPanorama(                               //
+          //       document.getElementById('pano'), panoramaOptions);                             //
+          //   } else {                                                                           //
+          //     infowindow.setContent('<div>' + marker.title + '</div>' +                        //
+          //       '<div>No Street View Found</div>');                                            //
+          //   }                                                                                  //
+          // }                                                                                    //
+          //////////////////////////////////////////////////////////////////////////////////////////
           // Use streetview service to get the closest streetview image within
           // 50 meters of the markers position
-          streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
+            //streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
+            streetViewService.getPanoramaByLocation(marker.position, radius, function getStreetView(data, status) {
+                if (status == google.maps.StreetViewStatus.OK) {
+                    var nearStreetViewLocation = data.location.latLng;
+                    var heading = google.maps.geometry.spherical.computeHeading(
+                        nearStreetViewLocation, marker.position);
+                    infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>');
+                    var panoramaOptions = {
+                        position: nearStreetViewLocation,
+                        pov: {
+                            heading: heading,
+                            pitch: 30
+                        }
+                    };
+                    var panorama = new google.maps.StreetViewPanorama(
+                        document.getElementById('pano'), panoramaOptions);
+                } else {
+                    infowindow.setContent('<div>' + marker.title + '</div>' +
+                                          '<div>No Street View Found</div>');
+                }
+            });
           // Open the infowindow on the correct marker.
           infowindow.open(map, marker);
         }
@@ -529,6 +566,14 @@
 
       // This function creates markers for each place found in either places search.
       function createMarkersForPlaces(places) {
+          function placeInfoWindowMarker()
+          {
+              if (placeInfoWindow.marker == this) {
+                  console.log("This infowindow already is on this marker!");
+              } else {
+                  getPlacesDetails(this, placeInfoWindow);
+              }
+          }
         var bounds = new google.maps.LatLngBounds();
         for (var i = 0; i < places.length; i++) {
           var place = places[i];
@@ -551,13 +596,14 @@
           // so that only one is open at once.
           var placeInfoWindow = new google.maps.InfoWindow();
           // If a marker is clicked, do a place details search on it in the next function.
-          marker.addListener('click', function() {
-            if (placeInfoWindow.marker == this) {
-              console.log("This infowindow already is on this marker!");
-            } else {
-              getPlacesDetails(this, placeInfoWindow);
-            }
-          });
+            marker.addListener('click', placeInfoWindowMarker);
+          //marker.addListener('click', function() {
+          //  if (placeInfoWindow.marker == this) {
+          //    console.log("This infowindow already is on this marker!");
+          //  } else {
+          //    getPlacesDetails(this, placeInfoWindow);
+          //  }
+          //});
           placeMarkers.push(marker);
           if (place.geometry.viewport) {
             // Only geocodes have viewport.
