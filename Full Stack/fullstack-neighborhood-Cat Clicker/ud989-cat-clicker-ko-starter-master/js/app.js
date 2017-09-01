@@ -34,7 +34,7 @@ var initialCats = [
         imgAttribution: 'https:www.flickr.com/photos/bigtallguy/434164568',
         nicknames: ["Zzzzzz"]
     }
-]
+];
 
 var Cat = function(data){
     this.clickCount = ko.observable(data.clickCount);
