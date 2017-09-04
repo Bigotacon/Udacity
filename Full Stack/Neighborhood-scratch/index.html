@@ -6,8 +6,13 @@
   <body>
       <div class="container">
           <div class="option-box">
-              hello world
-              <ul data-bind="foreach: markerList">
+                <h2 class="text-center">Search</h2>
+                <div class="form-group">
+                    <label>Title:</label>
+                    <input type="search" class="form-control" data-bind="textInput: query" autocomplete="off" />
+                </div>
+            </div>
+              <ul data-bind="foreach: filteredMarkerList">
                   <li data-bind="text: title, click: $parent.setMarker"></li>
               </ul>
               <div data-bind="with:currentMarker" id="marker">
