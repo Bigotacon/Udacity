@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="veiwport" content="width=device-width,inital-scale=1">
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+    <title>Joshua Picaro's Portfolio</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300i" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css">
+  </head>
+    <body>
+      <header>
+        <div class="container">
+          <!-- row 1-->
+          <div class="row">
+            <div logo class="col-md-6">
+              <img src="images/code.png" class="title-logo img-responsive" alt="Logo">
+            </div>
+            <div class="col-md-6 text-right text-uppercase">
+              <h1 class="title-super text-thin">Joshua Picaro</h1>
+              <h3 id = "Proffesion">Fullstack Ninja</h3>
+            </div>
+          </div>
+        </header>
+
+        <main>
+          <!--horizontal rule-->
+          <div class="row">
+            <div class="col-md-12">
+              <hr>
+            </div>
+          </div>
+
+          <!--row 2, Large Image-->
+          <div class="row">
+            <div class="col-md-12">
+              <img id = "mainPicture" src="images/coverImg.png" class="img-responsive" alt="Main Picture">
+            </div>
+          </div>
+        </main>
+
+        <footer>
+        <div class = "works">
+          <!--row 3, Featured Work-->
+          <div class="row">
+            <div class="col-md-12">
+              <h2 class="text-muted">Featured Work</h2>
+          </div>
+          </div>
+          <!--row 4-->
+          <!--project 1-->
+          <div class="row text-center">
+            <div class="col-md-4">
+              <img class="img-responsive" src="images/tournament.jpg" data-toggle="modal" data-target="#project1">
+              <h3>Database Management</h3>
+              <p><a href="https://github.com/Bigotacon/Swiss-Pairing-Tournament">Tournament</a></p>
+            </div>
+            <!--project 2-->
+            <div class="col-md-4">
+              <img class="img-responsive" src="images/movieTrailers.jpg" data-toggle="modal" data-target="#project2">
+              <h3>Responsive Movie Trailer</h3>
+              <p><a href="https://github.com/Bigotacon/Movie-List-Python">Pyton Movies Server</a></p>
+            </div>
+
+            <!--project 3-->
+            <div class="col-md-4">
+              <img class="img-responsive" src="images/quiz.png" data-toggle="modal" data-target="#project3">
+              <h3>ACII Text Based Quiz</h3>
+              <p><a href="https://github.com/Bigotacon/Quiz-ACSII-Python">Quiz</a></p>
+            </div>
+          </div>
+        </footer>
+
+        <!-- Modal project 1 -->
+        <div class="modal fade" id="project1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel"> Database Management</h4>
+              </div>
+              <div class="modal-body">
+                <img class="img-responsive" src="images/tournament.jpg">
+                  This project supports a Swiss-Pairing Tournament. It stores players information, registers new players, records the winners/losser of a given game, and reports the standing of the entire tournament. In addtion this project can count the number of players registered and drop players and/or matches.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal project 2 -->
+        <div class="modal fade" id="project2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel"> Favorite App Page 2</h4>
+              </div>
+              <div class="modal-body">
+                <img class="img-responsive" src="images/movieTrailers.jpg">
+                  This project uses python code to compile an HTML file with my favorite movies. Each movie has a title, image, storyline, and if the poster is clicked then the movie's trailer is played.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal project 3 -->
+        <div class="modal fade" id="project3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel"> Favorite App Page 2</h4>
+              </div>
+              <div class="modal-body">
+                <img class="img-responsive" src="images/quiz.png">
+                  This Python Script tests the user on History on the Warlord of Cao-Cao. The user selects the difficulty of the quiz (easy, medium, hard). The user then fills in the blanks of a provided paragraph.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
